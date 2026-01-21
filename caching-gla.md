@@ -1,3 +1,22 @@
+# guided learning activity  caching (SafeBoda)
+
+## overview
+This guided learning activity demonstrates how caching is implemented in the SafeBoda Django project using Redis to improve API performance and scalability.
+
+## Types of Caching in Django
+Django supports multiple caching strategies including per site, per view, template fragment and low level caching.
+
+This project uses **per view caching** applied to Django rest Framework ViewSets.
+
+## Redis-Based Caching
+Redis is configured as the cache backend using the `django redis` package. Cached responses reduce repeated database queries for frequently accessed endpoints.
+
+## Cached API Endpoint
+The User API endpoint (`GET /api/users/`) is cached for 5 minutes using Django’s `cache_page` decorator applied to the ViewSet `list` action.
+
+## Cache Invalidation
+Cache invalidation is handled using Django signals. When a user record is created or updated, the cache is cleared to prevent stale data.
+
 # Comprehensive Caching Implementation Guide for Django SafeBoda
 
 ## **Learning Objectives**

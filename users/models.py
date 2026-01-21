@@ -113,6 +113,21 @@ class Rider(models.Model):
     def __str__(self):
         return f"Rider: {self.user.email}"
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.cache import cache
+from django.contrib.auth import get_user_model
+import logging
+
+User = get_user_model()
+logger = logging.getLogger(__name__)
+
+@receiver(post_save, sender=User)
+def clear_user_cache(sender, **kwargs):
+    try:
+        cache.clear()
+    except Exception as e:
+        logger.warning("Cache not cleared (Redis not available): %s", e)
 
 
 
